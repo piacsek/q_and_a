@@ -1,24 +1,48 @@
-# README
+# Q&A
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A simple API for retrieving questions and their corresponding answers.
 
-Things you may want to cover:
+## Up & Running
 
-* Ruby version
+### System dependencies
 
-* System dependencies
+In order to run this project, you'll need the following setup in your local environment:
 
-* Configuration
+- Ruby 2.7.4(Via [rbenv](https://github.com/rbenv/rbenv#installation) is recommended)
+- [Rails 6.1.4](https://guides.rubyonrails.org/v6.0/getting_started.html#creating-a-new-rails-project-installing-rails)
+- [Postgres 13](https://www.postgresql.org/download/)
 
-* Database creation
+### Project dependencies
 
-* Database initialization
+Make sure you've got all dependencies installed locally by running:
 
-* How to run the test suite
+```shell script
+bundle install
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+### Database
 
-* Deployment instructions
+Make sure you've got a working [Postgres](https://www.postgresql.org/) instance on your env and then run:
 
-* ...
+```shell script
+rails db:create
+rails db:migrate
+```
+
+### Running the server
+
+Boot a local instance of the application by running:
+
+```shell script
+rails s
+```
+
+The server is now available at `http://localhost:3000`
+
+### Running tests
+
+Boot a local instance of the application by running:
+
+```shell script
+rails test
+```
