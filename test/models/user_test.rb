@@ -1,12 +1,11 @@
-require 'test_helper'
+require_relative 'model_case'
 
-class UserTest < ActiveSupport::TestCase
+class UserTest < ModelCase
 
-  test 'name is a mandatory attribute' do
+  test 'mandatory attributes' do
     user = users(:student)
 
-    user.name = nil
-    refute user.valid?
+    assert_property_is_mandatory user, :name
   end
 
 
