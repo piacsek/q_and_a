@@ -1,4 +1,4 @@
-class AddUserModel < ActiveRecord::Migration[6.1]
+class CreateUserModel < ActiveRecord::Migration[6.1]
   def change
     create_table :users do |t|
       t.string :name, null: false
