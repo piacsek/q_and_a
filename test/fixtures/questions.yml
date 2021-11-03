@@ -8,3 +8,13 @@ one_million_dollar_question:
   title: 'Which came first: the chicken or the egg?'
   is_private: false
   asker: student (User)
+
+question_without_answer:
+  title: 'Is the humankind going to survive the 21st century?'
+  is_private: false
+  asker: classmate (User)
+
+private_question:
+  title: 'Would you do it all over again?'
+  is_private: true
+  asker: classmate (User)
