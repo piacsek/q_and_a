@@ -2,8 +2,9 @@ require_relative 'model_case'
 
 class AnswerTest < ModelCase
   test 'mandatory attributes' do
-    answer = answers(:classmate_answer)
+    answer = build :answer
 
-    assert_property_is_mandatory answer, :body
+    refute_property_is_nullable answer, :body
+    refute_property_accepts_blank_string answer, :body
   end
 end
