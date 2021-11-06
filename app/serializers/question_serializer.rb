@@ -1,7 +1,7 @@
 class QuestionSerializer < ActiveModel::Serializer
   attributes :id, :title
   belongs_to :asker do
-    UserSerializer.new(object.asker).to_h
+    UserSerializer.new(object.asker)
   end
 
   has_many :answers do
