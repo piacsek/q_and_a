@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :question do
-    title { 'Would you try it again?' }
+    title { FFaker::HipsterIpsum.sentence }
     is_private { false }
     asker { association :user }
 
@@ -8,5 +8,8 @@ FactoryBot.define do
       is_private { true }
     end
 
+    trait :with_answers do
+      after(:create) { |question| create_list :answer, 5, question: question, body: FFaker::HipsterIpsum.sentence }
+    end
   end
 end
