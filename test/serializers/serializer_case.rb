@@ -6,6 +6,6 @@ class SerializerCase < ActiveSupport::TestCase
     expectation = expectation.deep_symbolize_keys
     serialized_model = serializer_class.new(model).to_h.deep_symbolize_keys
 
-    assert expectation== serialized_model, "\nExpected:\n#{expectation} \n\nActual:\n#{serialized_model}"
+    assert expectation == serialized_model, "\nExpected:\n#{expectation} \n\nActual:\n#{serialized_model}"
   end
 end
