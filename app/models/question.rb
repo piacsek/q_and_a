@@ -5,5 +5,4 @@ class Question < ApplicationRecord
   has_many :answers
 
   scope :is_public, -> { where(is_private: false)}
-  scope :with_answers, -> { left_joins(:answers)}
 end
