@@ -11,6 +11,7 @@ In order to run this project, you'll need the following setup in your local envi
 - Ruby 2.7.4(Via [rbenv](https://github.com/rbenv/rbenv#installation) is recommended)
 - [Rails 6.1.4](https://guides.rubyonrails.org/v6.0/getting_started.html#creating-a-new-rails-project-installing-rails)
 - [Postgres 13](https://www.postgresql.org/download/)
+- [Docker](https://docs.docker.com/get-docker/)
 
 ### Project dependencies
 
@@ -20,13 +21,23 @@ Make sure you've got all dependencies installed locally by running:
 bundle install
 ```
 
-### Database
+### Databases
+
+## Postgres
 
 Make sure you've got a working [Postgres](https://www.postgresql.org/) instance on your env and then run:
 
 ```shell script
 rails db:create
 rails db:migrate
+```
+
+## Redis
+
+You need a running instance of Redis in order to run this system. To achieve so, please run this command on project root:
+
+```shell script
+docker-compose -f docker/docker-compose.yml up -d
 ```
 
 ### Running the server
