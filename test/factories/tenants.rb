@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :tenant do
-    name { 'Basic Access' }
-    api_key { 'HAEWbaa8989782BJHHJ' }
+    name { FFaker::Company.name }
+    api_key { FFaker::Lorem.characters(64) }
   end
 end

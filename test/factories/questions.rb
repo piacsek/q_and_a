@@ -9,7 +9,9 @@ FactoryBot.define do
     end
 
     trait :with_answers do
-      after(:create) { |question| create_list :answer, 5, question: question, body: FFaker::HipsterIpsum.sentence }
+      after(:create) do |question|
+        create_list :answer, 5, question: question, body: FFaker::HipsterIpsum.sentence
+      end
     end
   end
 end

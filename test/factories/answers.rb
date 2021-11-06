@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :answer do
-    body { 'Does it really matter, bro?' }
+    body { FFaker::HipsterIpsum.sentence }
     question
-    provider { association :user, name: 'Provider User' }
+    provider { association :user, name: FFaker::Name.name }
   end
 end
