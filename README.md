@@ -21,9 +21,9 @@ Make sure you've got all dependencies installed locally by running:
 bundle install
 ```
 
-### Databases
+## Databases
 
-## Postgres
+### Postgres
 
 Make sure you've got a working [Postgres](https://www.postgresql.org/) instance on your env and then run:
 
@@ -32,7 +32,7 @@ rails db:create
 rails db:migrate
 ```
 
-## Redis
+### Redis
 
 You need a running instance of Redis in order to run this system. To achieve so, please run this command on project root:
 
