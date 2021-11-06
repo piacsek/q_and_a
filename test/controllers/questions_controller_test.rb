@@ -6,12 +6,12 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
 
     test "returns HTTP 200 and JSON response containing all public questions for" do
       create_list :question, 5, :with_answers
-      create :tenant
+      tenant = create :tenant
 
       expected_response = Question.is_public.includes(:asker, answers: :provider).map do |question|
         QuestionSerializer.new(question)
       end.to_json
-      api_key = Tenant.first.api_key
+      api_key = tenant.api_key
 
       get api_questions_url, headers: { 'Authorization' => api_key }
 
@@ -21,10 +21,10 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
 
     test 'returns HTTP 200 and a JSON response with an empty list if there are only private questions' do
       create_list :question, 3, :private, :with_answers
-      create :tenant
+      tenant = create :tenant
 
       expected_response = [].to_json
-      api_key = Tenant.first.api_key
+      api_key = tenant.api_key
 
       get api_questions_url, headers: { 'Authorization' => api_key }
 
@@ -33,9 +33,17 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     end
 
     test 'counts api_key utilization' do
-      skip
-      create :tenant
+      tenant = create :tenant
+      Redis.current.set tenant.id, 0
 
+      assert 0 == tenant.usage_count, "Wrong tenant usage count.\nExpected: 0\nActual: #{tenant.usage_count}"
+
+      get api_questions_url, headers: { 'Authorization' => tenant.api_key }
+      get api_questions_url, headers: { 'Authorization' => tenant.api_key }
+      get api_questions_url, headers: { 'Authorization' => tenant.api_key }
+      get api_questions_url, headers: { 'Authorization' => tenant.api_key }
+
+      assert 4 == tenant.usage_count, "Wrong tenant usage count.\nExpected: 4\nActual: #{tenant.usage_count}"
     end
   end
 

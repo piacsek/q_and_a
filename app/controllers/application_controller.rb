@@ -8,16 +8,12 @@ class ApplicationController < ActionController::API
     if tenant.blank?
       unauthorized!
     else
-      count_utilization tenant
+      tenant.register_usage
     end
   end
 
   def unauthorized!
     render json: { message: 'Invalid authorization header' }, status: :unauthorized
-  end
-
-  def count_utilization(tenant)
-    # TODO
   end
 
 
