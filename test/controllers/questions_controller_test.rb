@@ -3,12 +3,12 @@
 require './test/test_helper'
 
 class QuestionsControllerTest < ActionDispatch::IntegrationTest
-  def self.expect_successful_response(expected_response)
-    assert_response :success
-    assert expected_response == response.body, "\nExpected:\n#{expected_response} \n\nActual:\n#{response.body.to_json}"
-  end
-
   class AuthenticatedTest < ActionDispatch::IntegrationTest
+    def expect_successful_response(expected_response)
+      assert_response :success
+      assert expected_response == response.body, "\nExpected:\n#{expected_response} \n\nActual:\n#{response.body.to_json}"
+    end
+
     test 'tenant usage 0 when newly created' do
       tenant = create :tenant
       assert tenant.usage_count.zero?, "Wrong tenant usage count.\nExpected: 0\nActual: #{tenant.usage_count}"
@@ -21,9 +21,8 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
       expected_response = Question.is_public.includes(:asker, answers: :provider).map do |question|
         QuestionSerializer.new(question)
       end.to_json
-      api_key = tenant.api_key
 
-      get api_questions_url, headers: { 'Authorization' => api_key }
+      get api_questions_url, headers: { 'Authorization' => tenant.api_key }
 
       expect_successful_response(expected_response)
     end
