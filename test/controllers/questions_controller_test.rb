@@ -34,10 +34,10 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
 
     test 'counts api_key utilization' do
       tenant = create :tenant
-      Redis.current.set tenant.id, 0
 
       assert 0 == tenant.usage_count, "Wrong tenant usage count.\nExpected: 0\nActual: #{tenant.usage_count}"
 
+      # I'd recommend using a block with calls - and then use that number below. Make it a bit clearer,
       get api_questions_url, headers: { 'Authorization' => tenant.api_key }
       get api_questions_url, headers: { 'Authorization' => tenant.api_key }
       get api_questions_url, headers: { 'Authorization' => tenant.api_key }
