@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :question do
     title { FFaker::HipsterIpsum.sentence }
-    is_private { false }
+    is_private { [true, false].sample }
     asker { association :user }
 
     trait :private do
@@ -10,7 +10,8 @@ FactoryBot.define do
 
     trait :with_answers do
       after(:create) do |question|
-        create_list :answer, 5, question: question, body: FFaker::HipsterIpsum.sentence
+        # I would consider using a random number here too to test effects or arbitrary sized lists
+        create_list :answer, rand(30), question: question, body: FFaker::HipsterIpsum.sentence
       end
     end
   end
