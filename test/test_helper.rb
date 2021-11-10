@@ -3,7 +3,7 @@ require_relative "../config/environment"
 require "rails/test_help"
 require "database_cleaner-active_record"
 DatabaseCleaner[:active_record].strategy = :transaction
-
+DatabaseCleaner[:redis].strategy = :deletion
 
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
