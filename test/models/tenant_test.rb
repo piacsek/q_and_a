@@ -22,10 +22,10 @@ class TenantTest < ModelCase
     assert tenant.usage_count == tenant_calls
   end
 
-  test '#usage_count returns the expected amount when the tenant has never been used' do
+  test 'tenant usage 0 when newly created' do
     tenant = create :tenant
 
-    assert tenant.usage_count.zero?
+    assert tenant.usage_count.zero?, "Wrong tenant usage count.\nExpected: 0\nActual: #{tenant.usage_count}"
   end
 
   test '#register_usage increments the tenant usage by 1' do

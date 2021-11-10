@@ -9,11 +9,6 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
       assert expected_response == response.body, "\nExpected:\n#{expected_response} \n\nActual:\n#{response.body.to_json}"
     end
 
-    test 'tenant usage 0 when newly created' do
-      tenant = create :tenant
-      assert tenant.usage_count.zero?, "Wrong tenant usage count.\nExpected: 0\nActual: #{tenant.usage_count}"
-    end
-
     test 'returns HTTP 200 and JSON response containing all public questions for' do
       create_list :question, 5, :with_answers
       tenant = create :tenant
