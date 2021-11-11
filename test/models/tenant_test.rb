@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'model_case'
 
 class TenantTest < ModelCase
@@ -13,30 +15,29 @@ class TenantTest < ModelCase
 
   test '#usage_count returns the expected amount when the tenant has already been used' do
     tenant = create :tenant
-    Redis.current.set tenant.id, 10
+    tenant_calls = 10
 
-    assert 10 == tenant.usage_count
+    tenant_calls.times.each { |_n| tenant.register_usage }
+
+    assert tenant.usage_count == tenant_calls
   end
 
-  test '#usage_count returns the expected amount when the tenant has never been used' do
+  test 'tenant usage 0 when newly created' do
     tenant = create :tenant
-    Redis.current.set tenant.id, nil
 
-    assert 0 == tenant.usage_count
+    assert tenant.usage_count.zero?, "Wrong tenant usage count.\nExpected: 0\nActual: #{tenant.usage_count}"
   end
 
-  test '#register_usage increments the tenant usage by 1'  do
+  test '#register_usage increments the tenant usage by 1' do
     tenant = create :tenant
-    Redis.current.set tenant.id, 0
 
     tenant.register_usage
-    assert 1 == tenant.usage_count
+    assert tenant.usage_count == 1
 
     tenant.register_usage
-    assert 2 == tenant.usage_count
+    assert tenant.usage_count == 2
 
     tenant.register_usage
-    assert 3 == tenant.usage_count
+    assert tenant.usage_count == 3
   end
-
 end
